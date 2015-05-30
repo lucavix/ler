@@ -10,12 +10,15 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 import biz.opengate.lejos.commands.Backward;
 import biz.opengate.lejos.commands.Fire;
@@ -46,9 +49,9 @@ public class Home extends JFrame {
 	MyCommandListModel functionListModel;
 	JList <MyCommand> functionList;
 
-	JLabel startButton;
-	JLabel stopButton;
-	JLabel trashButton;
+	JButton startButton;
+	JButton stopButton;
+	JButton trashButton;
 	MyCommandTransferHandler myCommandTransferHandler;
 
 	LejosController lejosController;
@@ -145,6 +148,8 @@ public class Home extends JFrame {
 	public JList<MyCommand> getProgramList() {
 		if (programList==null) {
 			programList = new JList<MyCommand>(getProgramListModel());
+			programList.setVisibleRowCount(6);
+			
 			programList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			programList.setDragEnabled(true);
 			programList.setTransferHandler(getMyCommandTransferHandler());
@@ -159,7 +164,8 @@ public class Home extends JFrame {
 
 	public JList<MyCommand> getFunctionList() {
 		if (functionList==null) {
-			functionList = new JList<MyCommand>(getFunctionListModel());		
+			functionList = new JList<MyCommand>(getFunctionListModel());
+			functionList.setVisibleRowCount(6);
 			functionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			functionList.setDragEnabled(true);
 			functionList.setTransferHandler(getMyCommandTransferHandler());
@@ -210,13 +216,13 @@ public class Home extends JFrame {
 	
 
 	
-	public JLabel getStartButton() {
+	public JButton getStartButton() {
 		if (startButton==null) {
-			startButton=new JLabel(new ImageIcon("img/start.png"));
+			startButton=new JButton(new ImageIcon("img/start.png"));
 			startButton.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					LejosController.getInstance().execute(Home.this);
+					startExecution();
 					super.mouseClicked(e);
 				}
 			});
@@ -224,9 +230,21 @@ public class Home extends JFrame {
 		return startButton;
 	}
 	
-	public JLabel getStopButton() {
+	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+		@Override
+		protected Void doInBackground() throws Exception {
+			LejosController.getInstance().execute(Home.this);
+			return null;
+		}
+	};
+
+	public void startExecution() {
+		worker.execute();
+	}
+	
+	public JButton getStopButton() {
 		if (stopButton==null) {
-			stopButton=new JLabel(new ImageIcon("img/stop.png"));
+			stopButton=new JButton(new ImageIcon("img/stop.png"));
 			stopButton.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -239,9 +257,9 @@ public class Home extends JFrame {
 		return stopButton;
 	}
 	
-	public JLabel getTrashButton() {
+	public JButton getTrashButton() {
 		if (trashButton==null) {
-			trashButton=new JLabel(new ImageIcon("img/trash.png"));
+			trashButton=new JButton(new ImageIcon("img/trash.png"));
 			trashButton.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -258,6 +276,7 @@ public class Home extends JFrame {
 		System.out.println("Cleaning all");
 		((MyCommandListModel)getProgramList().getModel()).removeAll();
 		((MyCommandListModel)getFunctionList().getModel()).removeAll();
+//		this.update(this.getGraphics());
 	}
 	
 	public JPanel getControlPanel() {

@@ -6,6 +6,10 @@ public abstract class MyCommand {
 	public String image;
 	public String description;
 	
+	public static int STEER_ANGLE = 500; 
+	public static int MOVE_ANGLE = 945; 
+			
+	
 	public MyCommand() {
 	}
 	

@@ -11,8 +11,8 @@ public class Forward extends MyCommand{
 	@Override
 	public void execute(LejosController lejosController) {
 		try {			
-			lejosController.getMA().rotate(720, true);
-			lejosController.getMB().rotate(720, true);
+			lejosController.getMA().rotate(MOVE_ANGLE, true);
+			lejosController.getMB().rotate(MOVE_ANGLE, true);
 			lejosController.getMB().waitComplete();
 			lejosController.getMA().waitComplete();
 		} catch (Exception e) {

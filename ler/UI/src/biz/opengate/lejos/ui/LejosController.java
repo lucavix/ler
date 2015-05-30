@@ -129,11 +129,19 @@ public class LejosController {
 		}
 		return devices;
 	}
-	 boolean stopRunning;
+	
+	private boolean stopRunning;
+	private boolean running;
+	
 	
 	public void execute(Home home) {
+		if (running) return;
+		running = true;
 		stopRunning = false;
 		executeList(home.getProgramList(),home);
+		home.getProgramList().setSelectedIndices(new int[]{});
+		home.getFunctionList().setSelectedIndices(new int[]{});
+		running = false;
 	}
 	
 	public void executeList(JList<MyCommand> list,Home home ) {
@@ -146,7 +154,7 @@ public class LejosController {
 			} else {
 				System.out.println("Executing Step " + i);
 				list.setSelectedIndices(new int[]{i});
-				home.update(home.getGraphics());
+//				home.update(home.getGraphics());
 				mc.execute(this);
 			}
 		}
@@ -155,7 +163,9 @@ public class LejosController {
 
 	
 	public void stopRunning() {
+		if (!running) return;
 		stopRunning = true;
+		running = false;
 		
 	}
 }

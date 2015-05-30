@@ -10,8 +10,8 @@ public class Left extends MyCommand {
 	@Override
 	public void execute(LejosController lejosController) {
 		try {			
-			lejosController.getMA().rotate(-500, true);
-			lejosController.getMB().rotate(+500, true);
+			lejosController.getMA().rotate(-STEER_ANGLE, true);
+			lejosController.getMB().rotate(+STEER_ANGLE, true);
 			lejosController.getMB().waitComplete();
 			lejosController.getMA().waitComplete();
 		} catch (Exception e) {
