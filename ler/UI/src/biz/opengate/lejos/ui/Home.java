@@ -17,7 +17,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import biz.opengate.lejos.commands.Backward;
@@ -230,15 +229,15 @@ public class Home extends JFrame {
 		return startButton;
 	}
 	
-	SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-		@Override
-		protected Void doInBackground() throws Exception {
-			LejosController.getInstance().execute(Home.this);
-			return null;
-		}
-	};
 
 	public void startExecution() {
+		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				LejosController.getInstance().execute(Home.this);
+				return null;
+			}
+		};
 		worker.execute();
 	}
 	
