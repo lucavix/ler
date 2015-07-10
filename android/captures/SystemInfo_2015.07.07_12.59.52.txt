@@ -1,0 +1,36 @@
+Applications Memory Usage (kB):
+Uptime: 13411357 Realtime: 13411357
+
+** MEMINFO in pid 22465 [com.example.listad] **
+                   Pss  Private  Private  Swapped     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------
+  Native Heap        0        0        0        0     9699     9699    13852
+  Dalvik Heap     8200     7940       76    14100    26210    23503     2707
+ Dalvik Other      245      228        0        0                           
+        Stack      144      144        0        0                           
+    Other dev     8225     8220        4        0                           
+     .so mmap     1478      164      200     1616                           
+    .apk mmap      194        0       36        0                           
+    .ttf mmap       56        0       56        0                           
+    .dex mmap      264        0      260        0                           
+    code mmap      894        0      272        0                           
+   image mmap      929      560       52      728                           
+   Other mmap        5        4        0        0                           
+     Graphics    25920    25920        0        0                           
+           GL    19288    19288        0        0                           
+      Unknown     9113     9056       20     3264                           
+        TOTAL    74955    71524      976    19708    35909    33202    16559
+ 
+ Objects
+               Views:       86         ViewRootImpl:        1
+         AppContexts:        3           Activities:        1
+              Assets:        3        AssetManagers:        3
+       Local Binders:       16        Proxy Binders:       24
+    Death Recipients:        0
+     OpenSSL Sockets:        0
+ 
+ SQL
+         MEMORY_USED:        0
+  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0
+ 
